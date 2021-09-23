@@ -1,0 +1,43 @@
+version: '3'
+services:
+  spring-boot-zulu11:
+    image: "spring-boot-zulu11"
+    container_name: spring-boot-zulu11
+  spring-boot-microsoftopenjdk11:
+    image: "spring-boot-microsoftopenjdk11"
+    container_name: spring-boot-microsoftopenjdk11
+  spring-boot-openjdk8:
+    image: "spring-boot-openjdk8"
+    container_name: spring-boot-openjdk8
+  spring-boot-zulu8:
+    image: "spring-boot-zulu8"
+    container_name: spring-boot-zulu8
+  haproxy:
+    image: "haproxy:1.7"
+    depends_on:
+    - "spring-boot-openjdk8"
+    - "spring-boot-zulu8"
+    - "spring-boot-zulu11"
+    - "spring-boot-microsoftopenjdk11"
+    ports:
+    - "8080:8080"
+    volumes:
+    - ./haproxy:/usr/local/etc/haproxy
+    container_name: haproxy
+  prometheus:
+    depends_on:
+    - "spring-boot-openjdk8"
+    - "spring-boot-zulu8"
+    - "spring-boot-zulu11"
+    - "spring-boot-microsoftopenjdk11"
+    image: "prom/prometheus"
+    ports:
+    - "9090:9090"
+    volumes:
+     - ./prom-jdks.yml:/etc/prometheus/prometheus.yml
+    container_name: prometheus
+  grafana:
+     image: "grafana/grafana"
+     ports:
+     - "3000:3000"
+     container_name: grafana
