@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>org.springframework</groupId>
-    <artifactId>gs-reactive-rest-service</artifactId>
+    <artifactId>simple-spring-rest-service</artifactId>
     <version>0.1.0</version>
     <properties>
         <java.version>8</java.version>
