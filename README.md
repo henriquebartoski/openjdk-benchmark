@@ -1,2 +1,0 @@
-# openjdk-benchmark-
-openjdk benchmark 
